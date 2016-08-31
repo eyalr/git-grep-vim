@@ -1,9 +1,59 @@
 let g:gitgrepprg="git\\ grep\\ -n"
 
 function! GitGrep(args)
+    if empty(a:args)
+      let l:grepargs = expand("<cword>")
+    else
+      let l:grepargs = '"' . a:args . join(a:000, ' ') . '"'
+    end
     let grepprg_bak=&grepprg
     exec "set grepprg=" . g:gitgrepprg
-    execute "silent! grep " . a:args
+    execute "silent! grep " . l:grepargs
+    botright copen
+    let &grepprg=grepprg_bak
+    let b:GitGrepWindow = 1
+    exec "redraw!"
+endfunction
+
+function! GitGrepPython(args)
+    if empty(a:args)
+      let l:grepargs = expand("<cword>")
+    else
+      let l:grepargs = '"' . a:args . join(a:000, ' ') . '"'
+    end
+    let grepprg_bak=&grepprg
+    exec "set grepprg=" . g:gitgrepprg
+    execute "silent! grep " . l:grepargs . " -- '*.py'"
+    botright copen
+    let &grepprg=grepprg_bak
+    let b:GitGrepWindow = 1
+    exec "redraw!"
+endfunction
+
+function! GitGrepJavaScript(args)
+    if empty(a:args)
+      let l:grepargs = expand("<cword>")
+    else
+      let l:grepargs = '"' . a:args . join(a:000, ' ') . '"'
+    end
+    let grepprg_bak=&grepprg
+    exec "set grepprg=" . g:gitgrepprg
+    execute "silent! grep " . l:grepargs . " -- '*.js'"
+    botright copen
+    let &grepprg=grepprg_bak
+    let b:GitGrepWindow = 1
+    exec "redraw!"
+endfunction
+
+function! GitGrepHTML(args)
+    if empty(a:args)
+      let l:grepargs = expand("<cword>")
+    else
+      let l:grepargs = '"' . a:args . join(a:000, ' ') . '"'
+    end
+    let grepprg_bak=&grepprg
+    exec "set grepprg=" . g:gitgrepprg
+    execute "silent! grep " . l:grepargs . " -- '*.html'"
     botright copen
     let &grepprg=grepprg_bak
     let b:GitGrepWindow = 1
